@@ -26,9 +26,9 @@ public class ejercicio2 {
 				tabla[i][j] = numero.nextInt();
 			}
 		}
-		
+
 		imprimeMatriz(tabla);
-		
+
 		simetrico = true;
 		int control = tabla.length - 1;
 		int i = 0;
@@ -47,6 +47,8 @@ public class ejercicio2 {
 		} else {
 			System.out.println("\nLa tabla no es Simétrica.");
 		}
+
+		numero.close();
 	}
 
 }

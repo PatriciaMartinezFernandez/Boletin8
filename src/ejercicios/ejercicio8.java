@@ -3,8 +3,8 @@ package ejercicios;
 import java.util.Scanner;
 
 public class ejercicio8 {
-	public static int[][] addParticipante(int[][] participantes, int dorsal, int marca2002, int marca2001,
-			int marca2000) {
+	public static int[][] addParticipante(int[][] participantes, int idParticipante, int dorsal, int marca2002,
+			int marca2001, int marca2000) {
 
 		// Si tenemos participantes guardados
 		if (participantes.length > 0) {
@@ -21,14 +21,15 @@ public class ejercicio8 {
 			}
 		} else {
 			// Si no tenemos participantes, crear el primer espacio para rellenarlo
-			participantes = new int[1][4];
+			participantes = new int[1][5];
 		}
 
 		// Añadir el nuevo participantes al final de array
-		participantes[participantes.length - 1][0] = dorsal;
-		participantes[participantes.length - 1][1] = marca2002;
-		participantes[participantes.length - 1][2] = marca2001;
-		participantes[participantes.length - 1][3] = marca2000;
+		participantes[participantes.length - 1][0] = idParticipante;
+		participantes[participantes.length - 1][1] = dorsal;
+		participantes[participantes.length - 1][2] = marca2002;
+		participantes[participantes.length - 1][3] = marca2001;
+		participantes[participantes.length - 1][4] = marca2000;
 
 		return participantes;
 	}
@@ -58,11 +59,11 @@ public class ejercicio8 {
 
 	public static void imprimirParticipante(int participante, int[][] participantes, String[] nombres) {
 		System.out.println("Participante " + participante);
-		System.out.println("\tNombre: " + nombres[participante]);
-		System.out.println("\tNumero Dorsal: " + participantes[participante][0]);
-		System.out.println("\tMejor marca 2002: " + participantes[participante][1]);
-		System.out.println("\tMejor marca 2001: " + participantes[participante][2]);
-		System.out.println("\tMejor marca 2000: " + participantes[participante][3]);
+		System.out.println("\tNombre: " + nombres[participantes[participante][0]]);
+		System.out.println("\tNumero Dorsal: " + participantes[participante][1]);
+		System.out.println("\tMejor marca 2002: " + participantes[participante][2]);
+		System.out.println("\tMejor marca 2001: " + participantes[participante][3]);
+		System.out.println("\tMejor marca 2000: " + participantes[participante][4]);
 		System.out.println();
 	}
 
@@ -151,7 +152,8 @@ public class ejercicio8 {
 					mejor2000 = sc.nextInt();
 					System.out.println("\n");
 
-					participantes = addParticipante(participantes, numDorsal, mejor2002, mejor2001, mejor2000);
+					participantes = addParticipante(participantes, totalParticipantes - 1, numDorsal, mejor2002,
+							mejor2001, mejor2000);
 					nombres = addNombreParticipante(nombres, nombre);
 				}
 
@@ -163,7 +165,7 @@ public class ejercicio8 {
 					System.out.println("\nNo hay participantes.\n\n");
 				} else {
 					System.out.println("== Jugadores, ordenados por numero de dorsal ==");
-					participantes = ordenarPorXMenoraMayor(participantes, 0);
+					participantes = ordenarPorXMenoraMayor(participantes, 1);
 					for (int i = 0; i < participantes.length; i++) {
 						imprimirParticipante(i, participantes, nombres);
 					}
@@ -176,7 +178,7 @@ public class ejercicio8 {
 					System.out.println("\nNo hay participantes.\n\n");
 				} else {
 					System.out.println("== Jugadores, ordenados por mejor marca de 2002 ==");
-					participantes = ordenarPorXMayoraMenor(participantes, 1);
+					participantes = ordenarPorXMayoraMenor(participantes, 2);
 					for (int i = 0; i < participantes.length; i++) {
 						imprimirParticipante(i, participantes, nombres);
 					}
