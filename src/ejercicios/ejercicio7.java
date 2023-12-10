@@ -15,14 +15,14 @@ import java.util.Scanner;
 
 public class ejercicio7 {
 
-	public static void imprimeNotas(int matriz[][]) {
-		for (int alumno = 0; alumno < matriz.length; alumno++) {
-			System.out.print("Notas alumno " + (alumno+1) + ": ");
-			for (int trimestre = 0; trimestre < matriz[0].length; trimestre++) {
-				System.out.print(matriz[alumno][trimestre] + " ");
-			}
-			System.out.println();
+	public static void imprimeNotas(int matriz[][], int index) {
+		float media = 0;
+		System.out.print("Notas del alumno " + (index) + ": ");
+		for (int trimestre = 0; trimestre < matriz[0].length; trimestre++) {
+			System.out.print(matriz[index - 1][trimestre] + " ");
+			media += matriz[index - 1][trimestre] / 3.f;
 		}
+		System.out.println("\nNota media: " + media);
 	}
 
 	public static float mediaArr(int arr[]) {
@@ -34,7 +34,7 @@ public class ejercicio7 {
 
 		return (suma / arr.length);
 	}
-	
+
 	public static int[][] transpose(int matriz[][]) {
 
 		int[][] matrizT = new int[matriz.length][matriz.length];
@@ -56,11 +56,13 @@ public class ejercicio7 {
 
 		int[][] grupo;
 		float[] medias;
+		int input;
 
 		for (int i = 0; i < nGrupos; i++) {
 			System.out.println("Grupo " + (i + 1) + "º");
 			grupo = new int[5][3]; // alumnos & trimestres
 			medias = new float[3];
+			input = 0;
 
 			// Para cada grupo
 			for (int j = 0; j < grupo.length; j++) {
@@ -73,18 +75,31 @@ public class ejercicio7 {
 				}
 				System.out.println();
 			}
-			
-			System.out.println("Notas del grupo");
-			imprimeNotas(grupo);
-			
-			System.out.println("Media de los trimestres");
+
+			System.out.println("\nMedia de los trimestres");
 			// calcular medias
-			for (int k = 0; k < medias.length; k++ ) {
-				medias[i] = mediaArr(transpose(grupo)[i]);
-				System.out.println(medias[i]);
+			// Para cada trimestre
+			for (int trimestre = 0; trimestre < 3; trimestre++) {
+				// De cada alumno
+				for (int alumno = 0; alumno < grupo.length; alumno++) {
+					// Añadir la parte correspondiente de la media de cada nota (1/5)
+					medias[trimestre] += grupo[alumno][trimestre] / 5.f;
+				}
 			}
-			
+
+			// Imprimir medias de los trimestres
+			for (int j = 0; j < medias.length; j++) {
+				System.out.println("Media trimestre " + (j + 1) + "º : " + medias[j]);
+			}
+
+			System.out.println("\nDe qué alumno quieres saber la media?");
+			input = sc.nextInt();
+
+			imprimeNotas(grupo, input);
+			System.out.println();
 		}
+		
+		sc.close();
 	}
 
 }
